@@ -1,157 +1,304 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 
-<title>Manual Car Simulator</title>
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>Manual Drive Simulator</title>
 
 <style>
-body{
-margin:0;
-background:#050505;
-color:white;
-font-family:Arial;
-overflow:hidden;
-touch-action:none;
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    user-select:none;
+    -webkit-user-select:none;
+    -webkit-touch-callout:none;
+    touch-action:none;
 }
 
-.container{
-height:100vh;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-gap:15px;
+html,body{
+
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:#050505;
+    color:white;
+    font-family:Arial,Helvetica,sans-serif;
+
 }
 
-.gauges{
-display:flex;
-gap:20px;
+
+#app{
+
+    width:100vw;
+    height:100vh;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    gap:18px;
+
 }
+
+
+
+.top{
+
+    display:flex;
+    gap:20px;
+
+}
+
+
 
 .gauge{
-width:130px;
-height:130px;
-border-radius:50%;
-border:5px solid #555;
-background:#111;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
+
+    width:140px;
+    height:140px;
+
+    border-radius:50%;
+
+    background:
+    radial-gradient(circle,#222,#080808);
+
+    border:5px solid #555;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
 }
 
-.big{
-font-size:30px;
+
+
+.value{
+
+    font-size:32px;
+    font-weight:bold;
+
 }
+
+
+.label{
+
+    color:#aaa;
+    margin-top:5px;
+
+}
+
+
 
 #gear{
-font-size:45px;
-color:red;
+
+    font-size:50px;
+    color:#ff3333;
+
 }
+
+
+
+.car-wheel{
+
+    width:150px;
+    height:150px;
+
+    border-radius:50%;
+
+    border:12px solid #444;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:45px;
+
+    background:#111;
+
+}
+
+
 
 .pedals{
-display:flex;
-gap:10px;
+
+    display:flex;
+    gap:12px;
+
 }
+
+
 
 .pedal{
-width:90px;
-height:140px;
-background:#222;
-border:2px solid #555;
-border-radius:15px;
-display:flex;
-align-items:end;
-justify-content:center;
-padding-bottom:15px;
+
+    width:90px;
+    height:150px;
+
+    border-radius:15px;
+
+    background:#222;
+
+    border:2px solid #666;
+
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+
+    flex-direction:column;
+
+    padding-bottom:18px;
+
+    font-size:14px;
+
 }
 
-.wheel{
-width:130px;
-height:130px;
-border:10px solid #333;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:40px;
+
+
+.pedal:active{
+
+    background:#555;
+
 }
 
-.buttons{
-display:grid;
-grid-template-columns:repeat(3,60px);
-gap:8px;
+
+
+.shifter{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,65px);
+
+    gap:8px;
+
 }
+
+
 
 button{
-height:55px;
-background:#222;
-color:white;
-border:1px solid #666;
-border-radius:10px;
-font-size:18px;
+
+    height:55px;
+
+    background:#222;
+
+    color:white;
+
+    border:1px solid #777;
+
+    border-radius:10px;
+
+    font-size:20px;
+
 }
 
+
+
+.info{
+
+    color:#aaa;
+    font-size:14px;
+
+}
+
+
+
+@media(max-height:600px){
+
+#app{
+
+    transform:scale(.8);
+
+}
+
+}
+
+
 </style>
+
 </head>
 
 
 <body>
 
-<div class="container">
+
+<div id="app">
 
 
-<div class="gauges">
+<div class="top">
+
 
 <div class="gauge">
-<div id="rpm" class="big">800</div>
+
+<div id="rpm" class="value">
+800
+</div>
+
+<div class="label">
 RPM
 </div>
 
+</div>
+
+
+
 <div class="gauge">
-<div id="speed" class="big">0</div>
+
+<div id="speed" class="value">
+0
+</div>
+
+<div class="label">
 KM/H
 </div>
 
 </div>
 
 
-<div id="gear">N</div>
-
-
-<div class="wheel" id="wheel">
-🚗
 </div>
+
+
+
+<div id="gear">
+N
+</div>
+
+
+
+<div id="wheel" class="car-wheel">
+
+🚗
+
+</div>
+
+
 
 
 <div class="pedals">
 
-<div class="pedal" id="clutch">
+
+<div id="clutch" class="pedal">
+
 CLUTCH
+
 </div>
 
-<div class="pedal" id="gas">
-GAS
-</div>
 
-<div class="pedal" id="brake">
+
+<div id="brake" class="pedal">
+
 BRAKE
-</div>
 
 </div>
 
 
-<div class="buttons">
 
-<button onclick="changeGear(-1)">R</button>
-<button onclick="changeGear(0)">N</button>
-<button onclick="changeGear(1)">1</button>
+<div id="gas" class="pedal">
 
-<button onclick="changeGear(2)">2</button>
-<button onclick="changeGear(3)">3</button>
-<button onclick="changeGear(4)">4</button>
+GAS
 
 </div>
 
@@ -160,301 +307,634 @@ BRAKE
 
 
 
+
+<div class="shifter">
+
+<button onclick="changeGear(-1)">
+R
+</button>
+
+<button onclick="changeGear(0)">
+N
+</button>
+
+<button onclick="changeGear(1)">
+1
+</button>
+
+<button onclick="changeGear(2)">
+2
+</button>
+
+<button onclick="changeGear(3)">
+3
+</button>
+
+<button onclick="changeGear(4)">
+4
+</button>
+
+
+</div>
+
+
+
+<div class="info">
+
+Hold clutch before shifting
+
+</div>
+
+
+</div>
 <script>
 
 
-let rpm=800;
-let speed=0;
+let rpm = 800;
+let speed = 0;
 
-let throttle=0;
-let clutch=1;
+let throttle = 0;
 
-let gear=0;
+let clutch = 1;
+let clutchPressed = false;
 
-let wheelRotation=0;
+let gear = 0;
+
+let wheelRotation = 0;
 
 
-const gearRatios={
--1:-3.2,
-1:3.4,
-2:2.1,
-3:1.4,
-4:1
+const gearRatios = {
+
+    "-1": -3.2,
+
+    "1": 3.4,
+
+    "2": 2.1,
+
+    "3": 1.4,
+
+    "4": 1.0
+
 };
 
 
-let audio;
-let oscillator;
-let gain;
 
+const rpmDisplay =
+document.getElementById("rpm");
 
-function startSound(){
+const speedDisplay =
+document.getElementById("speed");
 
-audio=new AudioContext();
+const gearDisplay =
+document.getElementById("gear");
 
-oscillator=audio.createOscillator();
-gain=audio.createGain();
+const wheel =
+document.getElementById("wheel");
 
-oscillator.type="sawtooth";
-
-oscillator.connect(gain);
-gain.connect(audio.destination);
-
-gain.gain.value=0.03;
-
-oscillator.start();
-
-}
-
-
-
-function engineSound(){
-
-if(!oscillator)return;
-
-let frequency=
-40+
-(rpm/7000)*250;
-
-oscillator.frequency.setTargetAtTime(
-frequency,
-audio.currentTime,
-0.05
-);
-
-gain.gain.value=
-0.02+(throttle*0.05);
-
-}
 
 
 
 
 function changeGear(newGear){
 
-// must press clutch
 
-if(clutch < 0.8){
+    // realistic:
+    // cannot shift without clutch
 
-return;
+    if(clutch < 0.85){
 
-}
+        return;
 
-gear=newGear;
-
-
-if(gear===0)
-document.getElementById("gear").innerHTML="N";
-
-else
-document.getElementById("gear").innerHTML=gear;
+    }
 
 
-}
+    gear = newGear;
 
 
+    if(gear === 0){
 
-function update(){
+        gearDisplay.innerHTML="N";
 
+    }
+    else{
 
+        gearDisplay.innerHTML=gear;
 
-// engine
-
-let targetIdle=800;
-
-
-rpm +=
-(throttle*6000)*0.03;
-
-
-// engine resistance
-
-if(throttle===0)
-rpm-=30;
-
-
-
-if(rpm<800)
-rpm=800;
-
-
-
-// transmission
-
-
-if(gear!==0){
-
-
-let ratio=gearRatios[gear];
-
-let wheelRPM=speed*40*ratio;
-
-
-// clutch connection
-
-let grip=(1-clutch);
-
-
-rpm +=
-(wheelRPM-rpm)
-*grip
-*0.05;
-
-
-
-// drive wheels
-
-if(clutch<0.7){
-
-
-let torque=
-throttle*
-ratio*
-0.03;
-
-
-// clutch slip
-
-let slip =
-Math.abs(rpm-wheelRPM);
-
-
-if(slip>1000){
-
-torque*=0.4;
+    }
 
 }
 
 
-// car movement
 
-speed+=torque;
+
+
+function updatePhysics(){
+
+
+
+    // engine revs
+
+    let engineForce =
+    throttle * 5500;
+
+
+
+    rpm += engineForce * 0.025;
+
+
+
+    // natural RPM fall
+
+    if(throttle === 0){
+
+        rpm -= 35;
+
+    }
+
+
+
+
+
+    // gearbox connection
+
+
+    if(gear !== 0 && rpm > 0){
+
+
+
+        let ratio =
+        gearRatios[gear];
+
+
+
+        let wheelRPM =
+        speed * 45 * ratio;
+
+
+
+        // clutch bite point
+
+        let connection =
+        1 - clutch;
+
+
+
+        rpm +=
+        (wheelRPM - rpm)
+        *
+        connection
+        *
+        0.06;
+
+
+
+
+
+        // transfer power to wheels
+
+
+        if(clutch < 0.75){
+
+
+
+            let torque =
+            throttle *
+            ratio *
+            0.035;
+
+
+
+            // clutch slipping
+
+            let slip =
+            Math.abs(rpm-wheelRPM);
+
+
+
+            if(slip > 1500){
+
+                torque *=0.35;
+
+            }
+
+
+
+            speed += torque;
+
+
+
+        }
+
+
+    }
+
+
+
+
+
+    // rolling resistance
+
+    speed *=0.998;
+
+
+
+
+    // engine idle
+
+    if(rpm < 800 && speed < 2){
+
+        rpm=800;
+
+    }
+
+
+
+
+    // rev limiter
+
+    if(rpm > 7200){
+
+        rpm=7200;
+
+    }
+
+
+
+
+
+    // stall
+
+    if(
+
+        gear !== 0 &&
+        clutch < 0.25 &&
+        rpm < 500
+
+    ){
+
+        rpm=0;
+        speed=0;
+
+    }
+
+
+
+
+
+
+
+    // wheel movement
+
+    wheelRotation += speed*4;
+
+
+    wheel.style.transform =
+    `rotate(${wheelRotation}deg)`;
+
+
+
+
+
+    rpmDisplay.innerHTML =
+    Math.floor(rpm);
+
+
+
+    speedDisplay.innerHTML =
+    Math.floor(speed);
+
+
+
+
+    requestAnimationFrame(updatePhysics);
+
+}
+
+
+
+updatePhysics();
+
+
+
+
+
+// ---------- PEDALS ----------
+
+
+
+function setupPedal(id,type){
+
+
+
+let element =
+document.getElementById(id);
+
+
+
+element.addEventListener(
+"pointerdown",
+function(e){
+
+
+e.preventDefault();
+
+
+
+if(type==="gas"){
+
+    throttle=1;
+
+}
+
+
+
+if(type==="clutch"){
+
+    clutchPressed=true;
+    clutch=1;
+
+}
+
+
+
+});
+
+
+
+
+
+
+element.addEventListener(
+"pointerup",
+function(){
+
+
+
+if(type==="gas"){
+
+    throttle=0;
+
+}
+
+
+
+
+
+if(type==="clutch"){
+
+
+
+    clutchPressed=false;
+
+
+
+    // smooth clutch release
+
+    let release =
+    setInterval(()=>{
+
+
+        if(clutchPressed){
+
+            clearInterval(release);
+            return;
+
+        }
+
+
+
+        clutch-=0.015;
+
+
+
+        if(clutch<=0){
+
+            clutch=0;
+            clearInterval(release);
+
+        }
+
+
+
+    },30);
+
 
 
 }
 
-}
 
 
-// drag
-
-speed*=0.999;
+});
 
 
-
-// stall
-
-if(
-gear!==0 &&
-clutch<0.3 &&
-rpm<500
-){
-
-rpm=0;
-
-speed=0;
 
 }
 
 
 
 
-// wheel animation
+setupPedal("gas","gas");
 
-
-wheelRotation+=speed*3;
-
-
-document.getElementById("wheel")
-.style.transform=
-`rotate(${wheelRotation}deg)`;
-
-
-
-document.getElementById("rpm")
-.innerHTML=Math.floor(rpm);
-
-document.getElementById("speed")
-.innerHTML=Math.floor(speed);
-
-
-engineSound();
-
-
-requestAnimationFrame(update);
-
-}
-
-
-update();
+setupPedal("clutch","clutch");
 
 
 
 
 
-function press(id,down){
+document
+.getElementById("brake")
+.addEventListener(
+"pointerdown",
+()=>{
 
-let el=document.getElementById(id);
+speed*=0.90;
 
-
-el.ontouchstart=()=>{
-
-if(id==="gas")
-throttle=1;
-
-if(id==="clutch")
-clutch=1;
+});
 
 
-if(!audio)
-startSound();
 
-};
-
-
-el.ontouchend=()=>{
+</script>
+<script>
 
 
-if(id==="gas")
-throttle=0;
+// ---------- ENGINE SOUND ----------
 
 
-if(id==="clutch"){
+let audioContext = null;
+let engineOscillator = null;
+let engineVolume = null;
 
-// realistic slow clutch release
 
-let release=setInterval(()=>{
 
-clutch-=0.02;
+function startEngineAudio(){
 
-if(clutch<=0){
 
-clutch=0;
-clearInterval(release);
+    if(audioContext)
+        return;
 
-}
 
-},30);
+    audioContext =
+    new AudioContext();
 
-}
 
-};
+
+    engineOscillator =
+    audioContext.createOscillator();
+
+
+
+    engineVolume =
+    audioContext.createGain();
+
+
+
+    engineOscillator.type =
+    "sawtooth";
+
+
+
+    engineOscillator.connect(
+        engineVolume
+    );
+
+
+    engineVolume.connect(
+        audioContext.destination
+    );
+
+
+
+    engineVolume.gain.value =
+    0.025;
+
+
+
+    engineOscillator.start();
 
 
 }
 
 
 
-press("gas");
-press("clutch");
+
+
+function updateEngineSound(){
+
+
+    if(!engineOscillator)
+        return;
 
 
 
-document.getElementById("brake").ontouchstart=()=>{
+    let frequency =
+    40 +
+    (rpm / 7000) * 260;
 
-speed*=0.95;
 
-};
+
+    engineOscillator
+    .frequency
+    .setTargetAtTime(
+
+        frequency,
+
+        audioContext.currentTime,
+
+        0.05
+
+    );
+
+
+
+    engineVolume.gain.value =
+    0.02 +
+    throttle * 0.05;
+
+
+
+}
+
+
+
+
+
+// Start audio after user touch
+document.addEventListener(
+"pointerdown",
+()=>{
+
+    startEngineAudio();
+
+},
+{once:false}
+);
+
+
+
+
+
+// ---------- MOBILE LOCK ----------
+
+
+// prevent double tap zoom
+
+document.addEventListener(
+"dblclick",
+function(e){
+
+    e.preventDefault();
+
+},
+{
+passive:false
+});
+
+
+
+
+// prevent pinch zoom
+
+document.addEventListener(
+"gesturestart",
+function(e){
+
+    e.preventDefault();
+
+});
+
+
+
+
+// prevent scrolling
+
+document.addEventListener(
+"touchmove",
+function(e){
+
+    e.preventDefault();
+
+},
+{
+passive:false
+});
+
+
+
+
+
+// ---------- BETTER GAME LOOP ----------
+
+
+// connect sound to physics
+
+setInterval(()=>{
+
+    updateEngineSound();
+
+},50);
+
+
+
 
 
 </script>
@@ -462,3 +942,5 @@ speed*=0.95;
 
 </body>
 </html>
+
+  
